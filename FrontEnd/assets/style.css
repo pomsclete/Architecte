@@ -28,6 +28,10 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
+html {
+	background-color: #FFFEF8;
+}
 body {
 	line-height: 1;
 }
@@ -95,9 +99,24 @@ nav li {
 	font-size: 1.2em;
 }
 
-li:hover {
+li:hover, .menu:hover {
 	color: #B1663C;
 }
+
+.menu {
+	padding: 0 10px;
+	color: #000;
+	text-decoration: none;
+}
+
+.current_page {
+	font-weight: bold;
+}
+
+li img {
+	width: 60%;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -137,31 +156,31 @@ li:hover {
 	width: 100%;
 
 }
-#contact {
+#contact, #login {
 	width: 50%;
 margin: auto;
 }
-#contact > * {
+#contact > * , #login > * {
 	text-align: center;
 
 }
-#contact h2{
+#contact h2, #login h2{
 	margin-bottom: 20px;
 }
-#contact form {
+#contact form, #login form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#contact input, #login input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+#contact label, #login label {
 	margin: 2em 0 1em 0;
 }
 #contact textarea {
@@ -169,15 +188,26 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+#contact input[type="submit"], #login input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
 	margin : 2em auto ;
 	width: 180px;
+	height: 35px;
 	text-align: center;
 	border-radius: 60px ;
+}
+
+#login a {
+	display: block;
+	margin: auto;
+	color: #3D3D3D;
+}
+
+#login {
+	margin-top: 100px;
 }
 
 footer nav ul {
@@ -209,7 +239,50 @@ footer nav ul {
 	cursor: pointer;
 }
 
-.filters button.selected {
+button.selected {
 	background-color: #1D6154;
 	color: #FFF;
 }
+
+/* Page Login */
+
+/*#login, #login_form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#login {
+	gap: 40px;
+}
+
+#login_form {
+	width: 50%;
+}
+
+#login_form form {
+	width: 100%;
+	display: grid;
+	grid-template-rows: repeat(4, 50px) 70px;
+}
+
+
+#login_form label {
+	align-self: end;
+	padding-bottom: 7px;
+}
+
+#login_form input {
+	border: none;
+
+}
+
+.submit {
+	place-self: center;
+	font-family: "Syne";
+	border: none;
+	padding: 10px 40px;
+	border-radius: 60px;
+}*/
+
+

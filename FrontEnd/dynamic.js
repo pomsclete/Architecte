@@ -2,23 +2,23 @@
 // fonction pour ajouter une figure au portfolio
 
 function addFigure (url, text, catID) {
-	const gallery_div = document.getElementById("gallery");
+const gallery_div = document.getElementById("gallery");
 
-	let image = document.createElement("img");
-	image.src = url;
-	image.alt = text;
-	image.crossOrigin = "anonymous";
+let image = document.createElement("img");
+image.src = url;
+image.alt = text;
+image.crossOrigin = "anonymous";
 
-	let figure_caption = document.createElement("figcaption");
-	figure_caption.appendChild(document.createTextNode(text));
+let figure_caption = document.createElement("figcaption");
+figure_caption.appendChild(document.createTextNode(text));
 
-	let figure = document.createElement("figure");
+let figure = document.createElement("figure");
 
-	figure.classList.add("category"+catID);
-	figure.appendChild(image);
-	figure.appendChild(figure_caption);
+figure.classList.add("category"+catID);
+figure.appendChild(image);
+figure.appendChild(figure_caption);
 
-	gallery_div.appendChild(figure);
+gallery_div.appendChild(figure);
 }
 
 // fonction pour ajouter un bouton de filtre
@@ -80,7 +80,10 @@ const promise_works = fetch("http://localhost:5678/api/works");
 
 promise_works
 .then(function(response) {
+	if (response.ok) {
 		return response.json();
+	}
+	throw new Error("HTTP error: " + response.status);
 })
 .then(function(works) {
 	for (let i = 0; i < works.length; i++) {
@@ -90,7 +93,7 @@ promise_works
 	}
 })
 .catch(function(error) {
-	console.log("Something went wrong.");
+	console.log(error);
 });
 
 // requête fetch pour GET/categories
@@ -98,10 +101,13 @@ promise_works
 const promise_cat = fetch("http://localhost:5678/api/categories");
 
 promise_cat
-.then(function(response) {
-	return response.json();
+.then( (response) => {
+	if (response.ok) {
+		return response.json();
+	}
+	throw new Error("HTTP error: " + response.status);
 })
-.then( function(categories) {
+.then( (categories) => {
 	// ajout de la catégorie "Tous"
 	addFilter("Tous", 0);
 	selectFilter("category0");
@@ -110,5 +116,7 @@ promise_cat
 	for (let i = 0; i < categories.length; i++) {
 		addFilter(categories[i]["name"],categories[i]["id"]);
 	}
+}).catch( (error) => {
+	console.log(error);
 });
 
