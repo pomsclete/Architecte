@@ -1,57 +1,71 @@
-async function login (user) {
+async function login_fetch (user) {
+
+	const myheaders = new Headers ({
+		'Content-Type': 'application/json;charset=utf-8',
+		'accept': 'application/json'
+	});
+
 	const httpOptions = {
-		method: "GET",
-		// headers: {'Content-Type': 'application/json;charset=utf-8',
-					// 'accept': 'application/json'},
-		// body: JSON.stringify(user)
+		method: "POST",
+		headers: myheaders,
+		body: JSON.stringify(user)
 	};
 
 	const url = "http://localhost:5678/api/users/login";
-
-	try {
-		console.log("Coucou");
-		const response = await fetch(url,httpOptions);
-		return response;
-	} catch (error) {
-		console.log(error);
-		console.log("Hello");
-	}
+	const response = await fetch(url,httpOptions);
+	return response;
 }
 
+document.getElementById("login_form").onsubmit = async (event) => {
 
-document.getElementById("login_form").onsubmit = async () => {
+	event.preventDefault();
+
+	/* Remove error messages if any */
+	const error_messages = document.querySelectorAll("#login_form p");
+	for (elem of error_messages) {
+		elem.remove();
+	}
+	
+	const email_input = document.querySelector("#login_form :nth-child(2)");
+	const pass_input = document.querySelector("#login_form :nth-child(4)");
 
 	let form = document.getElementsByTagName('form');
-	console.log(form[0]);
 	let form_data = new FormData(form[0]);
+
 	const login_info = {
-		email: form_data.get("email"),
-		password: form_data.get("password")
+		"email": form_data.get("email"),
+		"password": form_data.get("password")
 	};
 
-	console.log("coucou1");
 	try {
-		let response = login(login_info);
-		console.log("coucou2");
-		let data;
-		switch (response.status) {
-		case 200:
+		const response = await login_fetch(login_info);
+		let data = '';
+		
+		if (response.status === 200) {
 			data = await response.json();
-			break;
-		case 401:
-			throw new Error("Mot de passe incorrect");
-			break;
-		case 404:
-			throw new Error("Cet utilisateur n'existe pas");
-			break;
-		default:
-			throw new Error("Erreur d'authentification");
+		} else {
+			switch (response.status) {
+			case 401:
+				pass_input.insertAdjacentHTML("afterend","<p>Mot de passe incorrect</p>");
+				break;
+			case 404:
+				email_input.insertAdjacentHTML("afterend","<p>Cet utilisateur n'existe pas</p>");
+				email_input.value = "";
+				break;
+			default:
+				throw new Error();
+			}
+
+			pass_input.value="";
+			return;
 		}
 
 		let session = await data;
-		sessionStorage.setItem("token", session[0]["token"]);
+		sessionStorage.setItem("token", session["token"]);
 		window.location.href = "index.html";
 	} catch (error) {
-		console.log(error);
+		console.log(new Error("Erreur d'authentification"));
 	}
 };
+
+
