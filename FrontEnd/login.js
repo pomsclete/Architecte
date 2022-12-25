@@ -1,9 +1,9 @@
 async function login (user) {
 	const httpOptions = {
-		method: "POST",
-		headers: {'Content-Type': 'application/json;charset=utf-8',
-					'accept': 'application/json'},
-		body: JSON.stringify(user)
+		method: "GET",
+		// headers: {'Content-Type': 'application/json;charset=utf-8',
+					// 'accept': 'application/json'},
+		// body: JSON.stringify(user)
 	};
 
 	const url = "http://localhost:5678/api/users/login";
@@ -11,10 +11,10 @@ async function login (user) {
 	try {
 		console.log("Coucou");
 		const response = await fetch(url,httpOptions);
-		console.log("Hello");
 		return response;
 	} catch (error) {
 		console.log(error);
+		console.log("Hello");
 	}
 }
 
@@ -29,8 +29,10 @@ document.getElementById("login_form").onsubmit = async () => {
 		password: form_data.get("password")
 	};
 
+	console.log("coucou1");
 	try {
 		let response = login(login_info);
+		console.log("coucou2");
 		let data;
 		switch (response.status) {
 		case 200:
