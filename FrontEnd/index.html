@@ -7,15 +7,19 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/9f22dbd359.js" crossorigin="anonymous"></script>
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-
-<script src="dynamic.js"></script>
+<section class="edit_header">
+	<i class="fa-regular fa-pen-to-square"></i>
+	<p>Mode édition</p>
+	<button>publier les changements</button>
+</section>
 
 <header>
-	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li><a href="index.html" class="menu current_page">projets</a></li>
@@ -29,8 +33,16 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
+			<div class="edit_text">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<p>modifier</p>
+			</div>
 		</figure>
 		<article>
+			<div class="edit_text">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<p>modifier</p>
+			</div>
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
@@ -38,7 +50,15 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<!-- <div class="portfolio_title"> -->
+			<div class="edit_text">
+					<i class="fa-regular fa-pen-to-square"></i>
+					<p>modifier</p>
+			</div>
+			<h2>Mes Projets</h2>
+			
+		<!-- </div> -->
+	
 		<div class="filters" id="filters">
 			<!-- Dynamically inserted filters -->
 		</div>
@@ -61,6 +81,9 @@
 	</section>
 </main>
 
+<script src="dynamic.js"></script>
+<script src="edit.js"></script>
+
 <footer>
 	<nav>
 		<ul>
@@ -68,5 +91,6 @@
 		</ul>
 	</nav>
 </footer>
+
 </body>
 </html>

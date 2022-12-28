@@ -141,9 +141,10 @@ li img {
 	margin-bottom: 0.5em;
 }
 #portfolio h2 {
-	text-align: center;
 	margin-bottom: 1em;
+	text-align: center;
 }
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -216,9 +217,17 @@ margin: auto;
 	margin-top: 100px;
 }
 
-footer nav ul {
+footer {
+	width: 100vw;
+	position: relative;
+	left: calc(-50vw + 50%);
+	background-color: #FFF;
 	display: flex;
+	align-items: center;
 	justify-content: flex-end;
+}
+
+footer nav ul {
 	margin: 2em
 }
 
@@ -235,7 +244,7 @@ footer nav ul {
 .filters button {
 	border: 1px solid #1D6154;
 	border-radius: 60px;
-	background-color: #FFF;
+	background-color: inherit;
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 16px;
@@ -250,4 +259,60 @@ button.selected {
 	color: #FFF;
 }
 
+.edit_header {
+	background-color: #000;
+	margin: 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+	width: 100vw;
+	height: 60px;
+	position: relative;
+	left: calc(-50vw + 50%);
+}
 
+.edit_header i, .edit_header p {
+	color: #FFF;
+}
+
+.edit_header * {
+	font-weight: 500;
+	font-size: 14px;
+}
+
+.edit_header button {
+	background-color: #FFF;
+	border-radius: 60px;
+	padding: 10px 25px;
+	border: none;
+}
+
+.edit_text {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	margin: 15px 0;
+}
+
+figure .edit_text {
+	width: 80%;
+	margin: 15px auto;
+}
+
+#introduction .edit_text p {
+	margin: 0;
+}
+
+#portfolio .edit_text {
+	position: relative;
+	left: calc(50% + 110px);
+	top: 40px;
+}
+
+.edit_text * {
+	font-weight: 400;
+	font-size: 14px;
+}
