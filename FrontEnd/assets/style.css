@@ -436,9 +436,14 @@ figure .edit_text {
 	border-top: 1px solid #B3B3B3;
 }
 
+
 .modal-wrapper button.delete_gallery {
 	background-color: transparent;
 	color: #D65353;
+}
+
+.fa-xmark, .add_photo, .delete_gallery, .icon_del {
+	cursor: pointer;
 }
 
 body {
