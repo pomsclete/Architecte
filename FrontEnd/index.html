@@ -12,10 +12,12 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-<section class="edit_header">
-	<i class="fa-regular fa-pen-to-square"></i>
-	<p>Mode édition</p>
-	<button>publier les changements</button>
+<section class="edit_header edit_area" style="display: none">
+	<div class="edit_text">
+		<i class="fa-regular fa-pen-to-square"></i>
+		<p>modifier</p>
+	</div>
+	<button class="publish_button">publier les changements</button>
 </section>
 
 <header>
@@ -33,13 +35,13 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
-			<div class="edit_text">
+			<div class="edit_area edit_text edit_photo" style="display: none">
 				<i class="fa-regular fa-pen-to-square"></i>
 				<p>modifier</p>
 			</div>
 		</figure>
 		<article>
-			<div class="edit_text">
+			<div class="edit_area edit_text edit_intro" style="display: none">
 				<i class="fa-regular fa-pen-to-square"></i>
 				<p>modifier</p>
 			</div>
@@ -51,14 +53,14 @@
 	</section>
 	<section id="portfolio">
 		<!-- <div class="portfolio_title"> -->
-			<div class="edit_text">
+			<div class="edit_area edit_text edit_portfolio" style="display: none">
 					<i class="fa-regular fa-pen-to-square"></i>
 					<p>modifier</p>
 			</div>
 			<h2>Mes Projets</h2>
-			
+
 		<!-- </div> -->
-	
+
 		<div class="filters" id="filters">
 			<!-- Dynamically inserted filters -->
 		</div>
@@ -80,6 +82,72 @@
 		</form>
 	</section>
 </main>
+
+<!-- style="display: none;" -->
+<aside class="modal"  > 
+	<div class="modal-wrapper">
+		<div class="top_icons_wrapper">
+
+			<i class="fa-solid fa-xmark"></i>
+			<i class="fa-solid fa-arrow-left" style="display:none;"></i>
+		</div>
+		
+		<h3>Galerie Photo</h3>
+		<div class="portfolio_wrapper">
+			<!-- Galerie chargée dynamiquement -->
+			<figure>
+				<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
+				<figcaption>éditer</figcaption>
+			</figure>
+			<figure>
+				<img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V">
+				<figcaption>éditer</figcaption>
+			</figure>
+			<figure>
+				<img src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres">
+				<figcaption>éditer</figcaption>
+			</figure>
+			<figure>
+				<img src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis">
+				<figcaption>éditer</figcaption>
+			</figure>
+			<figure>
+				<img src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis">
+				<figcaption>éditer</figcaption>
+			</figure>
+			<figure>
+				<img src="assets/images/appartement-paris-x.png" alt="Appartement Paris X">
+				<figcaption>éditer</figcaption>
+			</figure>
+			<figure>
+				<img src="assets/images/le-coteau-cassis.png" alt="Pavillon “Le coteau” - Cassis">
+				<figcaption>éditer</figcaption>
+			</figure>
+			<figure>
+				<img src="assets/images/villa-ferneze.png" alt="Villa Ferneze - Isola d’Elba">
+				<figcaption>éditer</figcaption>
+			</figure>
+			<figure>
+				<div class="icon_del"><i class="fa-solid fa-trash-can"></i></div>
+				<img src="assets/images/appartement-paris-xviii.png" alt="Appartement Paris XVIII">
+				<figcaption>éditer</figcaption>
+			</figure>
+			<figure>
+				<img src="assets/images/bar-lullaby-paris.png" alt="Bar “Lullaby” - Paris">
+				<figcaption>éditer</figcaption>
+			</figure>
+			<figure>
+				<img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
+				<figcaption>éditer</figcaption>
+			</figure>
+		</div>
+		<div class=buttons_wrapper>
+			<button class="add_photo">Ajouter une photo</button>
+			<button class="delete_gallery">Supprimer la galerie</button>
+		</div>
+
+	</div>
+</aside>
 
 <script src="dynamic.js"></script>
 <script src="edit.js"></script>

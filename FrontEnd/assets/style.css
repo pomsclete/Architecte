@@ -262,7 +262,7 @@ button.selected {
 .edit_header {
 	background-color: #000;
 	margin: 0;
-	display: flex;
+	display:flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -282,7 +282,7 @@ button.selected {
 	font-size: 14px;
 }
 
-.edit_header button {
+.publish_button {
 	background-color: #FFF;
 	border-radius: 60px;
 	padding: 10px 25px;
@@ -310,9 +310,137 @@ figure .edit_text {
 	position: relative;
 	left: calc(50% + 110px);
 	top: 40px;
+	width: 100px;
 }
 
 .edit_text * {
 	font-weight: 400;
 	font-size: 14px;
+}
+
+.edit_text:hover, .publish_button:hover {
+	cursor: pointer;
+}
+
+.publish_button:hover {
+		background-color: #f2f2f2;
+}
+
+/* Modal */
+
+.modal {
+	position: fixed;
+	top: 60px;
+	left: 0;
+	width: 100vw;
+	height: calc(100vh - 60px);
+	background: rgba(0,0,0,0.3);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modal * {
+	box-sizing: border-box;
+}
+
+.modal-wrapper {
+	background-color: #FFF;
+	border-radius: 10px;
+	width: 630px;
+	max-width: 100vw;
+	max-height: calc(100vh - 100px);
+	min-height: 380px;
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.modal-wrapper h3 {
+	font-family: "Work Sans";
+	font-size: 26px;
+	font-weight: 400;
+}
+
+.top_icons_wrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+}
+
+.modal-wrapper button {
+	width: 50%;
+	height: 35px;
+	flex-shrink: 0;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 14px;
+	color: white;
+	background-color: #1D6154;
+	border-radius: 60px;
+	border: none;
+}
+
+.portfolio_wrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 6px;
+	grid-row-gap: 10px;
+	margin: 30px 70px;
+	overflow: auto;
+
+}
+
+.portfolio_wrapper figure {
+	position: relative;
+}
+
+.portfolio_wrapper img {
+	width: 100%;
+}
+
+.portfolio_wrapper figcaption {
+	font-size: 12px;
+}
+
+.icon_del {
+	border-radius: 2px;
+	width: 17px;
+	height: 17px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #000;
+	color: white;
+	position: absolute;
+	top: 5%;
+	right: 5%;
+}
+
+.icon_del i {
+	font-size: 10px;
+}
+
+.buttons_wrapper {
+	width: calc(100% - 140px);
+	padding-top: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	border-top: 1px solid #B3B3B3;
+}
+
+.modal-wrapper button.delete_gallery {
+	background-color: transparent;
+	color: #D65353;
+}
+
+body {
+	overflow: hidden;
 }
