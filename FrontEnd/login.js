@@ -47,11 +47,9 @@ document.getElementById("login_form").onsubmit = async (event) => {
 			switch (response.status) {
 			case 401:
 				pass_input.insertAdjacentHTML("afterend","<p>Mot de passe incorrect</p>");
-				console.log("mdp not valid");
 				break;
 			case 404:
 				email_input.insertAdjacentHTML("afterend","<p>Cet utilisateur n'existe pas</p>");
-				console.log('user not found');
 				email_input.value = "";
 				break;
 			default:
@@ -63,10 +61,7 @@ document.getElementById("login_form").onsubmit = async (event) => {
 		}
 
 		const session = await data;
-		console.log(session);
 		sessionStorage.setItem("token", session["token"]);
-
-		console.log(sessionStorage.getItem("token"));
 		window.location.href = "index.html";
 	} catch (error) {
 		console.log(new Error("Erreur d'authentification"));

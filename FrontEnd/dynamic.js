@@ -1,24 +1,25 @@
+const gallery_div = document.getElementById("gallery");
 
 // fonction pour ajouter une figure au portfolio
 
-function addFigure (url, text, catID) {
-const gallery_div = document.getElementById("gallery");
+function addFigure (url, text, catID, id) {
 
-let image = document.createElement("img");
-image.src = url;
-image.alt = text;
-image.crossOrigin = "anonymous";
+	let image = document.createElement("img");
+	image.src = url;
+	image.alt = text;
+	image.crossOrigin = "anonymous";
 
-let figure_caption = document.createElement("figcaption");
-figure_caption.appendChild(document.createTextNode(text));
+	let figure_caption = document.createElement("figcaption");
+	figure_caption.appendChild(document.createTextNode(text));
 
-let figure = document.createElement("figure");
+	let figure = document.createElement("figure");
 
-figure.classList.add("category"+catID);
-figure.appendChild(image);
-figure.appendChild(figure_caption);
+	figure.classList.add("category"+catID);
+	figure.classList.add("fig"+id);
+	figure.append(image);
+	figure.append(figure_caption);
 
-gallery_div.appendChild(figure);
+	gallery_div.append(figure);
 }
 
 // fonction pour ajouter un bouton de filtre
@@ -29,7 +30,7 @@ function addFilter (name, catID) {
 	button.type = "button";
 	button.classList.add("category"+catID);
 	button.setAttribute("onclick", "selectFilter(\'category"+catID+"\')");
-	button.appendChild(document.createTextNode(name));
+	button.append(document.createTextNode(name));
 
 	filter_div.appendChild(button);
 }
@@ -74,49 +75,72 @@ function selectFilter (filterClass) {
 	}
 }
 
-// requête fetch pour GET/works
+// affichage des filtres sur la page
 
-const promise_works = fetch("http://localhost:5678/api/works");
+const displayFilters = async function () {
 
-promise_works
-.then(function(response) {
-	if (response.ok) {
-		return response.json();
-	}
-	throw new Error("HTTP error: " + response.status);
-})
-.then(function(works) {
-	for (let i = 0; i < works.length; i++) {
-		// ajout de la figure existante dans la BD
-		// console.log(works[i]["category"]["name"])
-		addFigure(works[i]["imageUrl"],works[i]["title"],works[i]["category"]["id"]);
-	}
-})
-.catch(function(error) {
-	console.log(error);
-});
-
-// requête fetch pour GET/categories
-
-const promise_cat = fetch("http://localhost:5678/api/categories");
-
-promise_cat
-.then( (response) => {
-	if (response.ok) {
-		return response.json();
-	}
-	throw new Error("HTTP error: " + response.status);
-})
-.then( (categories) => {
-	// ajout de la catégorie "Tous"
+	let catJson = await fetchCategories();
 	addFilter("Tous", 0);
 	selectFilter("category0");
 
 	// ajout dynamique des catégories
-	for (let i = 0; i < categories.length; i++) {
-		addFilter(categories[i]["name"],categories[i]["id"]);
+	for (let i = 0; i < catJson.length; i++) {
+		addFilter(catJson[i]["name"],catJson[i]["id"]);
 	}
-}).catch( (error) => {
-	console.log(error);
-});
+};
+
+// requête fetch pour GET/categories
+
+const fetchCategories = async function () {
+
+	try {
+	const response_cat = await fetch("http://localhost:5678/api/categories");
+	let categories = '';
+
+	if (response_cat.status === 200) {
+		categories = await response_cat.json();
+		return categories;
+		
+	} else {
+		throw new Error("HTTP error: " + response_cat.status);
+	}
+
+	} catch (error) {
+		console.log(error);
+	};
+};
+
+// requête fetch pour GET/works
+
+const displayGallery = async function () {
+
+	console.log("displayGallery");
+
+	// clear gallery if existent
+	gallery_div.replaceChildren();
+
+	try {
+		const response_works = await fetch("http://localhost:5678/api/works");
+
+		if (response_works.status === 200) {
+			works = await response_works.json();
+			for (let i = 0; i < works.length; i++) {
+				addFigure(works[i]["imageUrl"],works[i]["title"],
+					works[i]["category"]["id"],works[i]["id"]);
+			}
+		} else {
+			throw new Error("HTTP error: " + response_works.status);
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+const loadGallery = async function (e) {
+	displayGallery();
+	displayFilters();
+};
+
+window.addEventListener("load", loadGallery);
+
 
