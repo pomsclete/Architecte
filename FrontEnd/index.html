@@ -84,72 +84,64 @@
 </main>
 
 <aside class="modal" style="display:none"  > 
-	<div class="modal-wrapper">
+	<div class="modal_wrapper">
 		<div class="top_icons_wrapper">
 
 			<i class="fa-solid fa-xmark"></i>
-			<i class="fa-solid fa-arrow-left" style="display:none;"></i>
+			<i class="fa-solid fa-arrow-left js_add_view" style="display:none;"></i>
 		</div>
-		
-		<h3>Galerie Photo</h3>
-		<div class="portfolio_wrapper">
+
+		<h3></h3>
+
+		<div class="portfolio_wrapper js_default_view">
 			<!-- Galerie chargée dynamiquement -->
-			<!-- <figure>
-				<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
-				<figcaption>éditer</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V">
-				<figcaption>éditer</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres">
-				<figcaption>éditer</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis">
-				<figcaption>éditer</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis">
-				<figcaption>éditer</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-x.png" alt="Appartement Paris X">
-				<figcaption>éditer</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/le-coteau-cassis.png" alt="Pavillon “Le coteau” - Cassis">
-				<figcaption>éditer</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/villa-ferneze.png" alt="Villa Ferneze - Isola d’Elba">
-				<figcaption>éditer</figcaption>
-			</figure>
-			<figure>
-				<div class="icon_del"><i class="fa-solid fa-trash-can"></i></div>
-				<img src="assets/images/appartement-paris-xviii.png" alt="Appartement Paris XVIII">
-				<figcaption>éditer</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/bar-lullaby-paris.png" alt="Bar “Lullaby” - Paris">
-				<figcaption>éditer</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
-				<figcaption>éditer</figcaption>
-			</figure> -->
 		</div>
+
+		<div class="upload_work js_add_view" style="display: none;">
+			<form method="post" enctype="multipart/form-data">
+				<div class="photo_input">
+					<label for="image"><i class="fa-regular fa-image"></i></label>
+					<input
+					  type="file"
+					  id="image"
+					  name="image"
+					  accept=".jpg,.png"
+					  required />
+					  <p>jpg, png : 4mo max</p>
+				</div>
+				<div class="form_input">
+					<label for="title">Titre</label>
+					<input type="text" name="title" id="title" required>
+  				</div>
+  				<div class="form_input">
+					<label for="category">Catégorie</label>
+					<div class="select_block">
+						<select name="category" id="category" required>
+							<option value="Objets">Objets</option>
+							<option value="Appartements">Appartements</option>
+							<option value="Hotels & restaurants">Hôtels & restaurants</option>
+						</select>
+						<i class="fa-solid fa-chevron-down"></i>
+					</div>
+  				</div>
+			</form>
+		</div>
+		<p class="message-info" style="visibility: hidden;"></p>
 		<div class=buttons_wrapper>
-			<button class="add_photo">Ajouter une photo</button>
-			<button class="delete_gallery">Supprimer la galerie</button>
+			<div class="default_buttons js_default_view">
+				<button class="add_photo">Ajouter une photo</button>
+				<button class="delete_gallery">Supprimer la galerie</button>
+			</div>
+			<div class="form_button js_add_view" style="display: none;">
+				<button class="add_photo">Valider</button>
+			</div>
 		</div>
 
 	</div>
 </aside>
 
 <script src="dynamic.js"></script>
-<script src="edit.js"></script>
+<script src="modale.js"></script>
 
 <footer>
 	<nav>

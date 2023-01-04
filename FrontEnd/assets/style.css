@@ -346,7 +346,7 @@ figure .edit_text {
 	box-sizing: border-box;
 }
 
-.modal-wrapper {
+.modal_wrapper {
 	background-color: #FFF;
 	border-radius: 10px;
 	width: 630px;
@@ -356,12 +356,12 @@ figure .edit_text {
 	padding: 30px;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	gap: 10px;
 }
 
-.modal-wrapper h3 {
+.modal_wrapper h3 {
 	font-family: "Work Sans";
 	font-size: 26px;
 	font-weight: 400;
@@ -374,7 +374,7 @@ figure .edit_text {
 	justify-content: space-between;
 }
 
-.modal-wrapper button {
+.modal_wrapper button {
 	width: 50%;
 	height: 35px;
 	flex-shrink: 0;
@@ -428,8 +428,14 @@ figure .edit_text {
 }
 
 .buttons_wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.default_buttons, .form_button {
 	width: calc(100% - 140px);
-	padding-top: 40px;
+	padding-top: 30px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -439,13 +445,100 @@ figure .edit_text {
 }
 
 
-.modal-wrapper button.delete_gallery {
+.modal_wrapper button.delete_gallery {
 	background-color: transparent;
 	color: #D65353;
 }
 
-.fa-xmark, .add_photo, .delete_gallery, .icon_del {
+.fa-xmark, .add_photo, .delete_gallery, .icon_del, .fa-arrow-left {
 	cursor: pointer;
+}
+
+.message-info {
+/*	color: #ba2323;*/
+	font-style: italic;
+	opacity: 1;
+}
+
+.fadeOut {
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 2s, visibility 2s;
+}
+
+.upload_work {
+	width: 100%;
+	padding: 30px 70px;
+	overflow: auto;
+}
+
+.upload_work form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+.photo_input {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #E8F1F7;
+	border-radius: 3px;
+	padding: 20px;
+}
+
+.photo_input i {
+	padding: 10px;
+	font-size: 50px;
+	color: #B9C5CC;
+}
+
+.photo_input p {
+	font-size: 10px;
+	color: #444444;
+}
+
+.form_input {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+
+}
+
+.form_input label {
+	font-weight: 700;
+	color: #3D3D3D;
+}
+
+.form_input input, .form_input select {
+	width: 100%;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	background-color: #FFF;
+	height: 50px;
+	padding: 0 15px;
+	font-family: "Work Sans";
+	color :#3D3D3D;
+}
+
+.select_block {
+	width: 100%;
+	position: relative;
+}
+
+.form_input select {
+	background-position: 50px;
+	appearance: none;
+	padding-right: 50px;
+}
+
+.select_block i {
+	position: absolute;
+	color: #6C6C6C;
+	top: 40%;
+	right: 25px;
 }
 
 /*body {

@@ -110,6 +110,7 @@ const fetchCategories = async function () {
 	};
 };
 
+
 // requête fetch pour GET/works
 
 const displayGallery = async function () {
