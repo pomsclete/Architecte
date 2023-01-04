@@ -22,12 +22,10 @@ document.getElementById("login_form").onsubmit = async (event) => {
 
 	/* Remove error messages if any */
 	const error_messages = document.querySelectorAll("#login_form p");
-	for (elem of error_messages) {
-		elem.remove();
-	}
-	
-	const email_input = document.querySelector("#login_form :nth-child(2)");
-	const pass_input = document.querySelector("#login_form :nth-child(4)");
+	error_messages.forEach((elem) => {elem.remove()});
+
+	const email_input = document.getElementById("email_input");
+	const pass_input = document.getElementById("pass_input");
 
 	let form = document.getElementsByTagName('form');
 	let form_data = new FormData(form[0]);

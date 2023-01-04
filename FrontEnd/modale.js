@@ -175,7 +175,7 @@ const removeFigure = function (figID) {
   // retire la figure de la galerie
   const figClassGallery = ".fig"+figID;
   document.querySelector(figClassGallery).remove();
-}
+};
 
 // Affichage de la vue d'ajout de photo
 
@@ -210,4 +210,4 @@ const showDefaultView = function (e) {
   for (item of addModaleView) {
     item.style.display = "none";
   }
-}
+};
