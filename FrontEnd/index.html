@@ -100,14 +100,18 @@
 		<div class="upload_work js_add_view" style="display: none;">
 			<form method="post" enctype="multipart/form-data">
 				<div class="photo_input">
-					<label for="image"><i class="fa-regular fa-image"></i></label>
-					<input
-					  type="file"
-					  id="image"
-					  name="image"
-					  accept=".jpg,.png"
-					  required />
-					  <p>jpg, png : 4mo max</p>
+					<div class="image_input_content" id="image_input_content">
+						<div class="image_logo"><i class="fa-regular fa-image"></i></div>
+						<label for="image">+ Ajouter photo</label>
+						<input
+						  type="file"
+						  id="image"
+						  name="image"
+						  accept=".jpg,.png"
+						  required />
+						  <p>jpg, png : 4mo max</p>
+					  </div>
+					  <div class="image_preview" id="image_preview" style="display: none;"></div>
 				</div>
 				<div class="form_input">
 					<label for="title">Titre</label>

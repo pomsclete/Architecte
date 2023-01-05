@@ -455,7 +455,7 @@ figure .edit_text {
 }
 
 .message-info {
-/*	color: #ba2323;*/
+	color: #ba2323;
 	font-style: italic;
 	opacity: 1;
 }
@@ -478,25 +478,72 @@ figure .edit_text {
 	flex-direction: column;
 	gap: 30px;
 }
+
 .photo_input {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	position: relative;
+	height: 175px;
 	background-color: #E8F1F7;
 	border-radius: 3px;
 	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.photo_input i {
+.image_input_content {
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.image_input_content i {
 	padding: 10px;
 	font-size: 50px;
 	color: #B9C5CC;
 }
 
-.photo_input p {
+.image_input_content p {
 	font-size: 10px;
 	color: #444444;
 }
+
+input#image {
+	opacity: 0;
+	position: absolute;
+	height: 35px;
+	top: 100px;
+	z-index: -1;
+}
+
+.image_input_content label {
+	width: 50%;
+	height: 35px;
+	background: #CBD6DC;
+	color: #306685;
+	font-weight: 700;
+	border-radius: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	margin: 10px 0;
+}
+
+#image_preview {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+#image_preview img {
+	height: 100%;
+	width: 100%;
+	object-fit: scale-down;
+	cursor: pointer;
+}
+
 
 .form_input {
 	width: 100%;

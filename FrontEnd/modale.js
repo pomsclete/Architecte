@@ -6,6 +6,8 @@ const closeMark = document.querySelector(".fa-xmark");
 const backMark = document.querySelector(".fa-arrow-left");
 const defaultModaleView = document.querySelectorAll(".js_default_view");
 const addModaleView = document.querySelectorAll(".js_add_view");
+const input = document.getElementById("image");
+const infoText = document.querySelector(".message-info");
 
 // Vérifie la présence d'un token de session au chargement
 document.addEventListener('DOMContentLoaded', async (event) => {
@@ -21,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     hideEditionMode();
   }
 
-  // openModale(new CustomEvent('modaleOpened'));
+  openModale(new CustomEvent('modaleOpened'));
 });
 
 // Montre le mode édition
@@ -46,7 +48,7 @@ function hideEditionMode () {
 }
 
 // Ouvre la modale
-const openModale = function (e) {
+function openModale (e) {
   e.preventDefault();
   console.log("openModale");
 
@@ -58,18 +60,18 @@ const openModale = function (e) {
   document.querySelector(".modal_wrapper").addEventListener("click", stopPropagation);
   document.querySelector("button.add_photo").addEventListener("click", showAddView);
 
-  showDefaultView(new CustomEvent('modaleOpened'));
-  // showAddView(new CustomEvent('modaleOpened'));
-  displayModaleGallery();
-};
+  // showDefaultView(new CustomEvent('modaleOpened'));
+  showAddView(new CustomEvent('modaleOpened'));
+  // displayModaleGallery();
+}
 
 // Arrête la propagation du click
-const stopPropagation = function (e) {
+function stopPropagation (e) {
   e.stopPropagation();
 }
 
 // Ferme la modale
-const closeModale = function (e) {
+function closeModale (e) {
   e.preventDefault();
   console.log("closeModale");
 
@@ -88,7 +90,7 @@ const closeModale = function (e) {
 
   // Suppression de la galerie de la modale
   modaleGalleryWrapper.replaceChildren();
-};
+}
 
 // chargement de la galerie dans la modale
 
@@ -143,7 +145,7 @@ const deleteWork = async function (figID) {
 
     if (response.status === 204) {
         removeFigure(figID);
-        displayInfoMessage();
+        displayInfoMessage("delete","Projet supprimé de la galerie");
     } else {
       throw new Error(response.status);
     }
@@ -152,15 +154,21 @@ const deleteWork = async function (figID) {
   }
 };
 
-const displayInfoMessage = function () {
+const displayInfoMessage = function (action,texte) {
 
-  let infoText = document.querySelector(".message-info");
-  infoText.replaceChildren();
+  let timeout = false;
 
-  infoText.append(document.createTextNode("Projet supprimé de la galerie"));
-  setTimeout( () => {
-    infoText.style.visibility = 'visible';
-  }, 1000);
+  if (action === "delete") {
+    timeout = true;
+  }
+
+  infoText.replaceChildren(document.createTextNode(texte));
+  infoText.style.visibility = 'visible';
+
+  if (!timeout) {
+    return;
+  }
+
   setTimeout( () => {
     infoText.classList.add("fadeOut");
   }, 5000);
@@ -181,6 +189,10 @@ const removeFigure = function (figID) {
 
 const showAddView = function (e) {
   e.preventDefault();
+
+  // infoText.replaceChildren();
+  // infoText.style.visibility = "hidden";
+
   document.querySelector(".modal_wrapper h3")
   .replaceChildren(document.createTextNode("Ajout photo"));
 
@@ -193,6 +205,7 @@ const showAddView = function (e) {
   }
 
   backMark.addEventListener("click",showDefaultView);
+  input.addEventListener("change",updateImagePreview);
 };
 
 // Affiche la vue par défaut de la modale
@@ -200,6 +213,9 @@ const showAddView = function (e) {
 const showDefaultView = function (e) {
   e.preventDefault();
   console.log("showDefaultView");
+
+  infoText.replaceChildren();
+  infoText.style.visibility = "hidden";
 
   document.querySelector(".modal_wrapper h3")
   .replaceChildren(document.createTextNode("Galerie photo"));
@@ -211,3 +227,60 @@ const showDefaultView = function (e) {
     item.style.display = "none";
   }
 };
+
+function updateImagePreview (e) {
+  
+  const fileList = input.files;
+  const currentFile = fileList[0];
+  const content = document.getElementById("image_input_content");
+  const image_div = document.getElementById("image_preview");
+
+  infoText.replaceChildren();
+  infoText.style.visibility = "hidden";
+  console.log(fileList.length);
+
+  if (fileList.length === 0 || currentFile.size === 0) {
+    showImagePreviewContent(content,image_div);
+    return;
+  }
+
+  if (currentFile.type != "image/png" && currentFile.type != "image/jpg" && currentFile.type != "image/jpeg") {
+    console.log(currentFile.type);
+    showImagePreviewContent(content,image_div);
+    displayInfoMessage("add","Format invalide ; Formats acceptés : png et jpg");
+    return;
+  }
+
+  if (currentFile.size > 4194304) {
+    showImagePreviewContent(content,image_div);
+    displayInfoMessage("add","Fichier trop volumineux");
+    return;
+  }
+
+  hideImagePreviewContent(content,image_div,currentFile);
+
+}
+
+function showImagePreviewContent (content,image_div) {
+
+  content.style.opacity = '1';
+  image_div.style.display = "none";
+  image_div.replaceChildren();
+  image_div.removeEventListener("click",propagationToInputFile);
+}
+
+function hideImagePreviewContent (content,image_div,file) {
+
+  content.style.opacity = '0';
+  image_div.style.display = null;
+  const image = document.createElement('img');
+  image.src = URL.createObjectURL(file);
+  image_div.replaceChildren(image);
+
+  image_div.addEventListener("click",propagationToInputFile);
+}
+
+function propagationToInputFile (e) {
+  console.log("propagationToInputFile");
+  input.click();
+}
