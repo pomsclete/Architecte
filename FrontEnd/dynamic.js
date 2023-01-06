@@ -1,7 +1,6 @@
 const gallery_div = document.getElementById("gallery");
 
-// fonction pour ajouter une figure au portfolio
-function addFigure (url, text, catID, id) {
+function addFigure (url, text, catID, id) { // fonction pour ajouter une figure au portfolio
 
 	let image = document.createElement("img");
 	image.src = url;
@@ -21,20 +20,17 @@ function addFigure (url, text, catID, id) {
 	gallery_div.append(figure);
 }
 
-// fonction pour ajouter un bouton de filtre
-function addFilter (name, catID) {
+function addFilter (name, catID) { // fonction pour ajouter un bouton de filtre
 	const filter_div = document.getElementById("filters");
 	let button = document.createElement("button");
 	button.type = "button";
 	button.classList.add("category"+catID);
 	button.setAttribute("onclick", "selectFilter(\'category"+catID+"\')");
 	button.append(document.createTextNode(name));
-
 	filter_div.appendChild(button);
 }
 
-// fonction pour sélectionner et appliquer un filtre (appelée via 'onclick')
-function selectFilter (filterClass) {
+function selectFilter (filterClass) { // fonction pour sélectionner et appliquer un filtre (appelée via 'onclick')
 	let filter = document.querySelectorAll("button."+filterClass);
 	let allFilters = document.querySelectorAll("#filters button");
 
@@ -58,8 +54,7 @@ function selectFilter (filterClass) {
 
 	} else {
 		let shownFigures = document.querySelectorAll('figure.'+filterClass);
-		let hiddenFigures = document.querySelectorAll
-			('.gallery figure:not(.'+filterClass+")");
+		let hiddenFigures = document.querySelectorAll('.gallery figure:not(.'+filterClass+")");
 
 		for (let figure of hiddenFigures) {
 			figure.style.display = "none";
@@ -71,8 +66,7 @@ function selectFilter (filterClass) {
 	}
 }
 
-// affichage des filtres sur la page
-async function displayFilters () {
+async function displayFilters () { // affichage des filtres sur la page
 
 	let catJson = await fetchCategories();
 	addFilter("Tous", 0);
@@ -84,28 +78,24 @@ async function displayFilters () {
 	}
 };
 
-// requête fetch pour GET/categories
-async function fetchCategories () {
+async function fetchCategories () { // requête fetch pour GET/categories
 
 	try {
-	const response_cat = await fetch("http://localhost:5678/api/categories");
-	let categories = '';
+		const response_cat = await fetch("http://localhost:5678/api/categories");
+		let categories = '';
 
-	if (response_cat.status === 200) {
-		categories = await response_cat.json();
-		return categories;
-		
-	} else {
-		throw new Error("HTTP error: " + response_cat.status);
-	}
-
+		if (response_cat.status === 200) {
+			categories = await response_cat.json();
+			return categories;
+		} else {
+			throw new Error("HTTP error: " + response_cat.status);
+		}
 	} catch (error) {
 		console.log(error);
 	};
 };
 
-// requête fetch pour GET/works
-const displayGallery = async function () {
+const displayGallery = async function () { // requête fetch pour GET/works
 
 	// clear gallery if existent
 	gallery_div.replaceChildren();
@@ -116,8 +106,7 @@ const displayGallery = async function () {
 		if (response_works.status === 200) {
 			works = await response_works.json();
 			for (let i = 0; i < works.length; i++) {
-				addFigure(works[i]["imageUrl"],works[i]["title"],
-					works[i]["category"]["id"],works[i]["id"]);
+				addFigure(works[i]["imageUrl"],works[i]["title"],works[i]["category"]["id"],works[i]["id"]);
 			}
 		} else {
 			throw new Error("HTTP error: " + response_works.status);

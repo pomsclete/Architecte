@@ -23,8 +23,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
   }
 });
 
-// Montre le mode édition
-function showEditionMode () {
+function showEditionMode () { // Montre le mode édition
   for (item of editItems) {
     item.style.display = null;
   }
@@ -34,16 +33,14 @@ function showEditionMode () {
   editPortfolio.addEventListener("click",openModale);
 }
 
-// Cache le mode édition
-function hideEditionMode () {
+function hideEditionMode () { // Cache le mode édition
   for (item of editItems) {
     item.style.display = 'none';
   }
   editPortfolio.removeEventListener("click",openModale);
 }
 
-// Ouvre la modale
-function openModale (e) {
+function openModale (e) { // Ouvre la modale
   e.preventDefault();
 
   modal.style.display = null;
@@ -61,13 +58,11 @@ function openModale (e) {
   displayModaleGallery();
 }
 
-// Arrête la propagation du click
-function stopPropagation (e) {
+function stopPropagation (e) { // Arrête la propagation du click
   e.stopPropagation();
 }
 
-// Ferme la modale
-function closeModale (e) {
+function closeModale (e) { // Ferme la modale
   e.preventDefault();
 
   modal.style.display = "none";
@@ -86,15 +81,12 @@ function closeModale (e) {
     icon.removeEventListener("click",deleteWork);
   }
 
-  // Suppression de la galerie de la modale
-  modaleGalleryWrapper.replaceChildren();
+  modaleGalleryWrapper.replaceChildren();  // Suppression de la galerie de la modale
 }
 
-// chargement de la galerie dans la modale
-
-function displayModaleGallery () {
+function displayModaleGallery () { // chargement de la galerie dans la modale
+  
   const figList = gallery_div.childNodes;
-
   const iconDiv = document.createElement("div");
   iconDiv.classList.add("icon_del");
   const delIcon = document.createElement("i");
@@ -104,7 +96,6 @@ function displayModaleGallery () {
   const modaleFigCaption = document.createTextNode("éditer");
 
   for (figure of figList) {
-
     let figid = figure.classList[1].slice(3);
     let newDelIcon = iconDiv.cloneNode(true);
     newDelIcon.addEventListener("click", function () {
@@ -118,8 +109,7 @@ function displayModaleGallery () {
   }
 };
 
-// Suppression d'un projet
-async function deleteWork (figID) {
+async function deleteWork (figID) { // Suppression d'un projet
 
   const bearer = "Bearer " + sessionStorage.getItem("token");
 
@@ -152,7 +142,6 @@ async function deleteWork (figID) {
 function displayInfoMessage (action,texte) {
 
   let timeout = false;
-
   if (action === "delete") {
     timeout = true;
   }
@@ -180,12 +169,10 @@ function removeFigure (figID) {
   document.querySelector(figClassGallery).remove();
 }
 
-// Affichage de la vue d'ajout de photo
-function showAddView (e) {
+function showAddView (e) { // Affichage de la vue d'ajout de photo
   e.preventDefault();
 
-  document.querySelector(".modal_wrapper h3")
-  .replaceChildren(document.createTextNode("Ajout photo"));
+  document.querySelector(".modal_wrapper h3").replaceChildren(document.createTextNode("Ajout photo"));
 
   for (item of defaultModaleView) {
     item.style.display = "none";
@@ -199,15 +186,13 @@ function showAddView (e) {
   updateImagePreview(new CustomEvent("form-reseted"));
 }
 
-// Affiche la vue par défaut de la modale
-function showDefaultView (e) {
+function showDefaultView (e) { // Affiche la vue par défaut de la modale
   e.preventDefault();
 
   infoText.replaceChildren();
   infoText.style.visibility = "hidden";
 
-  document.querySelector(".modal_wrapper h3")
-  .replaceChildren(document.createTextNode("Galerie photo"));
+  document.querySelector(".modal_wrapper h3").replaceChildren(document.createTextNode("Galerie photo"));
   for (item of defaultModaleView) {
     item.style.display = null
   }
@@ -215,7 +200,6 @@ function showDefaultView (e) {
   for (item of addModaleView) {
     item.style.display = "none";
   }
-
 }
 
 function updateImagePreview (e) {
@@ -263,7 +247,6 @@ function hideImagePreviewContent (content,image_div,file) {
   const image = document.createElement('img');
   image.src = URL.createObjectURL(file);
   image_div.replaceChildren(image);
-
   image_div.addEventListener("click",propagationToInputFile);
 }
 
@@ -301,7 +284,7 @@ async function uploadProject (e) {
   };
 
   const response = await fetch("http://localhost:5678/api/works",httpOptions);
-  
+
   if (response.status != 201) {
     return;
   }
