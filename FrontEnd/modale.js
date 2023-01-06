@@ -8,27 +8,23 @@ const defaultModaleView = document.querySelectorAll(".js_default_view");
 const addModaleView = document.querySelectorAll(".js_add_view");
 const input = document.getElementById("image");
 const infoText = document.querySelector(".message-info");
+const form = document.getElementById("add_photo_form");
+const addButton = document.getElementById("send_photo_button");
 
 // Vérifie la présence d'un token de session au chargement
 document.addEventListener('DOMContentLoaded', async (event) => {
 
   const token = sessionStorage.getItem("token");
-  console.log(token);
 
   if (token) {
-    console.log("You're connected !");
     showEditionMode();
   } else {
-    console.log("No session cookie.");
     hideEditionMode();
   }
-
-  openModale(new CustomEvent('modaleOpened'));
 });
 
 // Montre le mode édition
 function showEditionMode () {
-  console.log("showEdit");
   for (item of editItems) {
     item.style.display = null;
   }
@@ -40,7 +36,6 @@ function showEditionMode () {
 
 // Cache le mode édition
 function hideEditionMode () {
-  console.log("hideEdit");
   for (item of editItems) {
     item.style.display = 'none';
   }
@@ -50,7 +45,6 @@ function hideEditionMode () {
 // Ouvre la modale
 function openModale (e) {
   e.preventDefault();
-  console.log("openModale");
 
   modal.style.display = null;
   document.body.style.overflow = "hidden";
@@ -59,10 +53,12 @@ function openModale (e) {
   modal.addEventListener("click",closeModale);
   document.querySelector(".modal_wrapper").addEventListener("click", stopPropagation);
   document.querySelector("button.add_photo").addEventListener("click", showAddView);
+  input.addEventListener("change",updateImagePreview);
+  backMark.addEventListener("click",showDefaultView);
+  addButton.addEventListener("click",uploadProject);
 
-  // showDefaultView(new CustomEvent('modaleOpened'));
-  showAddView(new CustomEvent('modaleOpened'));
-  // displayModaleGallery();
+  showDefaultView(new CustomEvent('modaleOpened'));
+  displayModaleGallery();
 }
 
 // Arrête la propagation du click
@@ -73,7 +69,6 @@ function stopPropagation (e) {
 // Ferme la modale
 function closeModale (e) {
   e.preventDefault();
-  console.log("closeModale");
 
   modal.style.display = "none";
   document.body.style.overflow = 'inherit';
@@ -82,6 +77,9 @@ function closeModale (e) {
   modal.removeEventListener("click",closeModale);
   document.querySelector(".modal_wrapper").removeEventListener("click",stopPropagation);
   document.querySelector("button.add_photo").removeEventListener("click",showAddView);
+  input.removeEventListener("change",updateImagePreview);
+  backMark.removeEventListener("click",showDefaultView);
+  addButton.removeEventListener("click",uploadProject);
 
   const iconList = document.querySelectorAll(".icon_del");
   for (icon of iconList) {
@@ -94,9 +92,7 @@ function closeModale (e) {
 
 // chargement de la galerie dans la modale
 
-const displayModaleGallery = function () {
-  console.log("displayModaleGallery");
-
+function displayModaleGallery () {
   const figList = gallery_div.childNodes;
 
   const iconDiv = document.createElement("div");
@@ -123,8 +119,7 @@ const displayModaleGallery = function () {
 };
 
 // Suppression d'un projet
-
-const deleteWork = async function (figID) {
+async function deleteWork (figID) {
 
   const bearer = "Bearer " + sessionStorage.getItem("token");
 
@@ -154,7 +149,7 @@ const deleteWork = async function (figID) {
   }
 };
 
-const displayInfoMessage = function (action,texte) {
+function displayInfoMessage (action,texte) {
 
   let timeout = false;
 
@@ -174,7 +169,7 @@ const displayInfoMessage = function (action,texte) {
   }, 5000);
 };
 
-const removeFigure = function (figID) {
+function removeFigure (figID) {
 
   // retire la figure de la modale
   const figClassWrapper = ".portfolio_wrapper .fig"+figID;
@@ -183,15 +178,11 @@ const removeFigure = function (figID) {
   // retire la figure de la galerie
   const figClassGallery = ".fig"+figID;
   document.querySelector(figClassGallery).remove();
-};
+}
 
 // Affichage de la vue d'ajout de photo
-
-const showAddView = function (e) {
+function showAddView (e) {
   e.preventDefault();
-
-  // infoText.replaceChildren();
-  // infoText.style.visibility = "hidden";
 
   document.querySelector(".modal_wrapper h3")
   .replaceChildren(document.createTextNode("Ajout photo"));
@@ -204,15 +195,13 @@ const showAddView = function (e) {
     item.style.display = null
   }
 
-  backMark.addEventListener("click",showDefaultView);
-  input.addEventListener("change",updateImagePreview);
-};
+  form.reset();
+  updateImagePreview(new CustomEvent("form-reseted"));
+}
 
 // Affiche la vue par défaut de la modale
-
-const showDefaultView = function (e) {
+function showDefaultView (e) {
   e.preventDefault();
-  console.log("showDefaultView");
 
   infoText.replaceChildren();
   infoText.style.visibility = "hidden";
@@ -226,10 +215,11 @@ const showDefaultView = function (e) {
   for (item of addModaleView) {
     item.style.display = "none";
   }
-};
+
+}
 
 function updateImagePreview (e) {
-  
+
   const fileList = input.files;
   const currentFile = fileList[0];
   const content = document.getElementById("image_input_content");
@@ -237,7 +227,6 @@ function updateImagePreview (e) {
 
   infoText.replaceChildren();
   infoText.style.visibility = "hidden";
-  console.log(fileList.length);
 
   if (fileList.length === 0 || currentFile.size === 0) {
     showImagePreviewContent(content,image_div);
@@ -245,7 +234,6 @@ function updateImagePreview (e) {
   }
 
   if (currentFile.type != "image/png" && currentFile.type != "image/jpg" && currentFile.type != "image/jpeg") {
-    console.log(currentFile.type);
     showImagePreviewContent(content,image_div);
     displayInfoMessage("add","Format invalide ; Formats acceptés : png et jpg");
     return;
@@ -258,7 +246,6 @@ function updateImagePreview (e) {
   }
 
   hideImagePreviewContent(content,image_div,currentFile);
-
 }
 
 function showImagePreviewContent (content,image_div) {
@@ -281,6 +268,44 @@ function hideImagePreviewContent (content,image_div,file) {
 }
 
 function propagationToInputFile (e) {
-  console.log("propagationToInputFile");
   input.click();
+}
+
+async function uploadProject (e) {
+  e.preventDefault();
+
+  form_data = new FormData(form);
+  const image = form_data.get("image");
+
+  if (image.size === 0) {
+    displayInfoMessage("add","Une image est requise");
+    return;
+  }
+
+  if (form_data.get("title") === "") {
+    displayInfoMessage("add","Un titre est requis");
+    return;
+  }
+
+  const bearer = "Bearer " + sessionStorage.getItem("token");
+
+  const myheaders = new Headers ({
+    'accept': 'application/json',
+    'Authorization': bearer
+  });
+
+  const httpOptions = {
+    method: "POST",
+    headers: myheaders,
+    body: form_data
+  };
+
+  const response = await fetch("http://localhost:5678/api/works",httpOptions);
+  
+  if (response.status != 201) {
+    return;
+  }
+
+  closeModale(new CustomEvent("modale-closed"));
+  displayGallery();
 }

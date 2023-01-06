@@ -98,7 +98,7 @@
 		</div>
 
 		<div class="upload_work js_add_view" style="display: none;">
-			<form method="post" enctype="multipart/form-data">
+			<form method="post" enctype="multipart/form-data" id="add_photo_form">
 				<div class="photo_input">
 					<div class="image_input_content" id="image_input_content">
 						<div class="image_logo"><i class="fa-regular fa-image"></i></div>
@@ -121,9 +121,9 @@
 					<label for="category">Catégorie</label>
 					<div class="select_block">
 						<select name="category" id="category" required>
-							<option value="Objets">Objets</option>
-							<option value="Appartements">Appartements</option>
-							<option value="Hotels & restaurants">Hôtels & restaurants</option>
+							<option value="1">Objets</option>
+							<option value="2">Appartements</option>
+							<option value="3">Hôtels & restaurants</option>
 						</select>
 						<i class="fa-solid fa-chevron-down"></i>
 					</div>
@@ -137,7 +137,7 @@
 				<button class="delete_gallery">Supprimer la galerie</button>
 			</div>
 			<div class="form_button js_add_view" style="display: none;">
-				<button class="add_photo">Valider</button>
+				<button class="add_photo" id="send_photo_button">Valider</button>
 			</div>
 		</div>
 

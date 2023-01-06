@@ -1,7 +1,6 @@
 const gallery_div = document.getElementById("gallery");
 
 // fonction pour ajouter une figure au portfolio
-
 function addFigure (url, text, catID, id) {
 
 	let image = document.createElement("img");
@@ -23,7 +22,6 @@ function addFigure (url, text, catID, id) {
 }
 
 // fonction pour ajouter un bouton de filtre
-
 function addFilter (name, catID) {
 	const filter_div = document.getElementById("filters");
 	let button = document.createElement("button");
@@ -36,7 +34,6 @@ function addFilter (name, catID) {
 }
 
 // fonction pour sélectionner et appliquer un filtre (appelée via 'onclick')
-
 function selectFilter (filterClass) {
 	let filter = document.querySelectorAll("button."+filterClass);
 	let allFilters = document.querySelectorAll("#filters button");
@@ -54,7 +51,6 @@ function selectFilter (filterClass) {
 
 	if (filterClass == 'category0') {
 		// si le filter 'Tous' est sélectionné on prend toutes les figures
-		// console.log(document.querySelectorAll('.gallery figure'));
 		let allFigures = document.querySelectorAll('.gallery figure');
 		for (let figure of allFigures) {
 			figure.style.display = 'inherit';
@@ -76,8 +72,7 @@ function selectFilter (filterClass) {
 }
 
 // affichage des filtres sur la page
-
-const displayFilters = async function () {
+async function displayFilters () {
 
 	let catJson = await fetchCategories();
 	addFilter("Tous", 0);
@@ -90,8 +85,7 @@ const displayFilters = async function () {
 };
 
 // requête fetch pour GET/categories
-
-const fetchCategories = async function () {
+async function fetchCategories () {
 
 	try {
 	const response_cat = await fetch("http://localhost:5678/api/categories");
@@ -110,12 +104,8 @@ const fetchCategories = async function () {
 	};
 };
 
-
 // requête fetch pour GET/works
-
 const displayGallery = async function () {
-
-	console.log("displayGallery");
 
 	// clear gallery if existent
 	gallery_div.replaceChildren();
