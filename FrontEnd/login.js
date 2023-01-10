@@ -39,23 +39,21 @@ document.getElementById("login_form").onsubmit = async (event) => {
 		const response = await login_fetch(login_info);
 		let data = '';
 
-		if (response.status === 200) {
+		switch (response.status) {
+		case 200:
 			data = await response.json();
-		} else {
-			switch (response.status) {
-			case 401:
-				pass_input.insertAdjacentHTML("afterend","<p>Mot de passe incorrect</p>");
-				break;
-			case 404:
-				email_input.insertAdjacentHTML("afterend","<p>Cet utilisateur n'existe pas</p>");
-				email_input.value = "";
-				break;
-			default:
-				throw new Error();
-			}
-
+			break;
+		case 401:
+			pass_input.insertAdjacentHTML("afterend","<p>Mot de passe incorrect</p>");
 			pass_input.value="";
 			return;
+		case 404:
+			email_input.insertAdjacentHTML("afterend","<p>Cet utilisateur n'existe pas</p>");
+			email_input.value = "";
+			pass_input.value="";
+			return;
+		default:
+			throw new Error();
 		}
 
 		const session = await data;

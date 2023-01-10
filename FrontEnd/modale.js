@@ -10,6 +10,7 @@ const input = document.getElementById("image");
 const infoText = document.querySelector(".message-info");
 const form = document.getElementById("add_photo_form");
 const addButton = document.getElementById("send_photo_button");
+const logInOut = document.getElementById("login_logout");
 
 // Vérifie la présence d'un token de session au chargement
 document.addEventListener('DOMContentLoaded', async (event) => {
@@ -31,12 +32,22 @@ function showEditionMode () { // Montre le mode édition
   document.body.style.top = '60px';
 
   editPortfolio.addEventListener("click",openModale);
+  logInOut.replaceChildren(document.createTextNode("logout"));
+  logInOut.addEventListener("click", (e) => {
+    e.preventDefault();
+    sessionStorage.removeItem("token");
+    hideEditionMode();
+    e.currentTarget.removeEventListener(e.type,arguments.callee);
+  });
 }
 
 function hideEditionMode () { // Cache le mode édition
   for (item of editItems) {
     item.style.display = 'none';
   }
+  logInOut.replaceChildren(document.createTextNode("login"));
+  document.body.style.position = 'inherit';
+  document.body.style.top = '0';
   editPortfolio.removeEventListener("click",openModale);
 }
 
